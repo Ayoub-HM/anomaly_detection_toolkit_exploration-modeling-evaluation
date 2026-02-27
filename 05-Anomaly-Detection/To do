@@ -1,0 +1,70 @@
+
+### General ###
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+ 
+import warnings
+warnings.filterwarnings('ignore')
+ 
+### Dimension Reduction ###
+from sklearn.manifold import TSNE
+from sklearn.decomposition import PCA
+import time
+ 
+### 3D plots ###
+from mpl_toolkits.mplot3d import axes3d, Axes3D
+from mpl_toolkits.mplot3d import proj3d
+ 
+### Model ###
+from sklearn.model_selection import train_test_split
+
+credit = pd.read_csv("../input/creditcard.csv")
+print(credit.head())
+
+
+plt.figure(figsize=(7,7))
+sns.set(style="darkgrid")
+sns.countplot(x="Class", data=credit)
+plt.show()
+
+
+# Plot histograms of each parameter
+credit.hist(figsize = (20, 20))
+plt.show()
+credit.isnull().sum()
+credit.duplicated().sum()
+
+#Scatter plot of the amount over time
+plt.figure(figsize=(12,8))
+sns.scatterplot(x=credit['Time'], y=credit['Amount'])
+plt.show()
+ 
+
+#Amout of fraudulant transactions vs. Amound of valid transactions
+plt.figure(figsize=(12,8))
+sns.scatterplot(x=Valid.Time, y=Valid.Amount, alpha=0.4, label="Not Fraud")
+sns.scatterplot(x=Fraud.Time, y=Fraud.Amount, alpha=0.8, label="Fraud")
+plt.title("Amount of the transaction over time")
+plt.legend()
+plt.show()
+ 
+
+ # explore the dataset
+print(credit.columns)
+
+credit['Time_day'] = credit['Time'].apply(lambda x : x/ 3600 %24)
+
+#Volume of valid transactions by time period
+Valid = credit[credit["Class"]==0]
+ 
+plt.figure(figsize=(12,8))
+Valid["Time_day"].hist(bins=35)
+plt.title("Volume of valid transactions by time period")
+plt.show()
+
+
+for i in range(1,29) :
+    boxplot = credit.boxplot(grid=False, column='V'+ str(i), by='Class', figsize=(12,8))
+plt.show()
